@@ -3,6 +3,7 @@ from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from translations import translations
 import random
+import os
 
 app = Flask(__name__)
 
@@ -11,8 +12,10 @@ app.config["SESSION_TYPE"] = "filesystem"
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 Session(app)
 
-db = sqlite3.connect("question.db", check_same_thread=False)
-db.row_factory = sqlite3.Row
+def get_db():
+    db = sqlite3.connect(os.path.join(os.path.dirname(__file__), "question.db"))
+    db.row_factory = sqlite3.Row
+    return db
 
 
 # app route per il sito bilingue (italiano/inglese)
@@ -76,7 +79,7 @@ def domanda():
         flash("Seleziona categoria e difficoltà.")
         return redirect("/domande")
 
-    row = db.execute(
+    row =  get_db().execute(
         "SELECT question, correct_answer, wrong_answer1, wrong_answer2, wrong_answer3 FROM questions WHERE category = ? AND difficulty = ?  AND language = ? ORDER BY RANDOM() LIMIT 1",
         (category, difficulty, lang)
     ).fetchone()

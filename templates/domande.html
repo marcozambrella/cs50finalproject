@@ -222,19 +222,19 @@
 <footer style="width:100%; max-width:700px; background:#d6c397; border:0.5px solid #e0dada; border-radius:12px; padding:1rem 1.25rem; display:flex; flex-direction:column; gap:8px;">
   {% set colors = ['#ffb000','#ff7a00','#d32f2f','#8c1d40'] %}
   {% for i in range(1, players + 1) %}
-  {% set score = scores[i | string] %}
-  {% set pct = (score / 25 * 100) %}
-  {% if pct < 0 %}
-    {% set pct = 1 %}
-  {% endif %}
-  {% set width = pct | round | int %}
-  <div style="display:flex; align-items:center; gap:10px;">
-    <span style="font-size:12px; color:#000000; min-width:80px;">player {{ i }}</span>
-    <div style="flex:1; background:#f0ecec; border-radius:4px; height:10px;">
-      <div style="width:{{ width }}%; background:{{ colors[i-1] }}; border-radius:4px; height:10px; transition:width 0.3s;"></div>
+    {% set score = scores[i | string] %}
+    {% set pct = (score / 25 * 100) %}
+    {% if pct < 0 %}
+      {% set pct = 1 %}
+    {% endif %}
+    {% set width = pct | round | int %}
+    <div style="display:flex; align-items:center; gap:10px;">
+      <span style="font-size:12px; color:#000000; min-width:80px;">player {{ i }}</span>
+      <div style="flex:1; background:#f0ecec; border-radius:4px; height:10px;">
+        <div style="width:{{ width }}%; background:{{ colors[i-1] }}; border-radius:4px; height:10px; transition:width 0.3s;"></div>
+      </div>
+      <span style="font-size:13px; font-weight:500; min-width:24px;">{{ score }}</span>
     </div>
-    <span style="font-size:13px; font-weight:500; min-width:24px;">{{ score }}</span>
-  </div>
   {% endfor %}
 </footer>
 
