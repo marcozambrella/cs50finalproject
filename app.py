@@ -74,7 +74,7 @@ def domande():
 def domanda():
     category = session.get("category")
     difficulty = session.get("difficulty")
-    lang = session.get("lang", "en")
+    lang = session.get("lang", "it")
     if not category or not difficulty:
         flash("Seleziona categoria e difficoltà.")
         return redirect("/domande")
